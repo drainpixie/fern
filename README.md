@@ -65,4 +65,5 @@ $ git commit -m 'feat: we do some ferning'
 $ fern push
 ```
 
-
+## 🤝 attributions
+This project was born out of my own frustration with managing repositories across different forges. It was also inspired by [mugi](https://github.com/Fuwn/mugi) by [Fuwn](https://github.com/Fuwn), although with a different mental model; `mugi` prefers operating over a global registry of repositories via a configuration file, `fern` is much more git-centric and prefers operating inside individual repositories.
