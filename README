@@ -1,42 +1,46 @@
-# FERNBEDIENUNG
-A command-line interface to manage Git remotes 
+FERNBEDIENUNG
+  A command-line interface to manage Git remotes 
 
-## INSTALL 
-### CARGO
-```sh
-$ cargo install --git https://github.com/drainpixie/fern.git
-```
+INSTALL 
+  CARGO
 
-### NIX 
-#### DECLARATIVE
-```nix
-environment.systemPackages = [
-    inputs.fern.packages.<arch>.fern;
-];
-```
+    $ cargo install --git https://github.com/drainpixie/fern.git
 
-#### IMPERATIVE
-```sh
-$ nix profile install github:drainpixie/fern
-```
+  NIX 
 
-## USAGE 
-```sh
-# Initialise a repository
-$ fern init
+    DECLARATIVE
 
-# Add your remotes
-$ fern add github git@github.com:username/repo.git
-$ fern add codeberg git@codeberg.org:username/repo.git
+      environment.systemPackages = [ inputs.fern.packages.<arch>.fern; ];
 
-# Do some Git operations
-$ echo "console.log('Hello, World');" > fern.mjs 
-$ git add fern.mjs
-$ git commit -m 'feat: we do some ferning'
+    IMPERATIVE
 
-# Push with Fern 
-$ fern push
-```
+      $ nix profile install github:drainpixie/fern
 
-## ATTRIBUTIONS
-This project was born out of my own frustration with managing repositories across different forges, but also by [mugi](https://github.com/Fuwn/mugi) by [Fuwn](https://github.com/Fuwn), although with a different mental model; `mugi` prefers operating over a global registry of repositories via a configuration file, `fern` is much more git-centric and prefers operating inside individual repositories.
+USAGE 
+  INITIALISE A REPOSITORY
+
+    $ fern init
+
+  ADD YOUR REMOTES
+
+    $ fern add github git@github.com:username/repo.git 
+    $ fern add codeberg git@codeberg.org:username/repo.git
+
+  DO SOME GIT OPERATIONS
+
+    $ echo "console.log('Hello, World');" > fern.mjs 
+    $ git add fern.mjs 
+    $ git commit -m 'feat: we do some ferning'
+
+  PUSH WITH FERN 
+
+    $ fern push
+
+ATTRIBUTIONS
+
+  This project was born out of my own frustration with managing repositories
+  across different forges, but also by [mugi](https://github.com/Fuwn/mugi) by
+  [Fuwn](https://github.com/Fuwn), although with a different mental model;
+  `mugi` prefers operating over a global registry of repositories via a
+  configuration file, `fern` is much more git-centric and prefers operating
+  inside individual repositories.
