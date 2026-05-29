@@ -1,0 +1,2 @@
+- [] Parallelise stuff e.g. pushing
+- [] Publish command to create repository across forges
