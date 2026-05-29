@@ -134,9 +134,13 @@ impl Layer for Git {
     }
 
     fn push(&self, remotes: &[String]) -> Result<()> {
+        let branch = self.current_branch().unwrap_or_else(|_| "HEAD".to_string());
+
         self.resolve_targets(remotes)?
             .iter()
-            .try_for_each(|remote| self.run_interactive(&["push", remote]))
+            .try_for_each(|remote| {
+                self.run_interactive(&["push", "--set-upstream", &remote, &branch])
+            })
     }
 
     fn pull(&self, remotes: &[String]) -> Result<()> {
