@@ -60,7 +60,11 @@ pub fn print_status(statuses: &[RemoteStatus], format: &Format) {
                 return;
             }
 
-            for s in statuses {
+            for (idx, s) in statuses.iter().enumerate() {
+                if idx > 0 {
+                    println!();
+                }
+
                 println!("{}  {}", s.remote.name.cyan().bold(), s.remote.url.dimmed());
 
                 if s.branches.is_empty() {
@@ -87,10 +91,6 @@ pub fn print_status(statuses: &[RemoteStatus], format: &Format) {
                             "→".dimmed(),
                             format!("{:<upstream_width$}", b.upstream).dimmed(),
                         );
-
-                        if i == last {
-                            println!();
-                        }
                     }
                 }
             }
