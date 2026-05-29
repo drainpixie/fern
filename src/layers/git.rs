@@ -63,25 +63,25 @@ impl Git {
     fn branches_tracking(&self, remote: &str) -> Result<Vec<BranchTracking>> {
         let out = self.run(&[
             "for-each-ref",
-            "--format=%(refname:short)\t%(upstream:short)",
-            "refs/heads",
+            "--format=%(refname:short)",
+            &format!("refs/remotes/{remote}/"),
         ])?;
 
         out.lines()
             .filter(|l| !l.is_empty())
-            .filter_map(|line| {
-                let (local, upstream) = line.split_once('\t')?;
-                upstream
-                    .starts_with(&format!("{remote}/"))
-                    .then(|| (local.to_string(), upstream.to_string()))
-            })
-            .map(|(local, upstream)| {
-                let ahead = self.rev_count(&upstream, &local).unwrap_or(0);
-                let behind = self.rev_count(&local, &upstream).unwrap_or(0);
+            .filter(|upstream| *upstream != &format!("{remote}/HEAD"))
+            .map(|upstream| {
+                let local = upstream
+                    .strip_prefix(&format!("{remote}/"))
+                    .unwrap_or(upstream)
+                    .to_string();
+
+                let ahead = self.rev_count(upstream, &local).unwrap_or(0);
+                let behind = self.rev_count(&local, upstream).unwrap_or(0);
 
                 Ok(BranchTracking {
                     local,
-                    upstream,
+                    upstream: upstream.to_string(),
                     ahead,
                     behind,
                 })
