@@ -1,0 +1,42 @@
+# FERNBEDIENUNG
+A command-line interface to manage Git remotes 
+
+## INSTALL 
+### CARGO
+```sh
+$ cargo install --git https://github.com/drainpixie/fern.git
+```
+
+### NIX 
+#### DECLARATIVE
+```nix
+environment.systemPackages = [
+    inputs.fern.packages.<arch>.fern;
+];
+```
+
+#### IMPERATIVE
+```sh
+$ nix profile install github:drainpixie/fern
+```
+
+## USAGE 
+```sh
+# Initialise a repository
+$ fern init
+
+# Add your remotes
+$ fern add github git@github.com:username/repo.git
+$ fern add codeberg git@codeberg.org:username/repo.git
+
+# Do some Git operations
+$ echo "console.log('Hello, World');" > fern.mjs 
+$ git add fern.mjs
+$ git commit -m 'feat: we do some ferning'
+
+# Push with Fern 
+$ fern push
+```
+
+## ATTRIBUTIONS
+This project was born out of my own frustration with managing repositories across different forges, but also by [mugi](https://github.com/Fuwn/mugi) by [Fuwn](https://github.com/Fuwn), although with a different mental model; `mugi` prefers operating over a global registry of repositories via a configuration file, `fern` is much more git-centric and prefers operating inside individual repositories.
