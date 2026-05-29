@@ -3,41 +3,32 @@ FERNBEDIENUNG
 
 INSTALL 
   CARGO
-
     $ cargo install --git https://github.com/drainpixie/fern.git
 
   NIX 
-
     DECLARATIVE
-
       environment.systemPackages = [ inputs.fern.packages.<arch>.fern; ];
 
     IMPERATIVE
-
       $ nix profile install github:drainpixie/fern
 
 USAGE 
   INITIALISE A REPOSITORY
-
     $ fern init
 
   ADD YOUR REMOTES
-
     $ fern add github git@github.com:username/repo.git 
     $ fern add codeberg git@codeberg.org:username/repo.git
 
   DO SOME GIT OPERATIONS
-
     $ echo "console.log('Hello, World');" > fern.mjs 
     $ git add fern.mjs 
     $ git commit -m 'feat: we do some ferning'
 
   PUSH WITH FERN 
-
     $ fern push
 
 ATTRIBUTIONS
-
   This project was born out of my own frustration with managing repositories
   across different forges, but also by [mugi](https://github.com/Fuwn/mugi) by
   [Fuwn](https://github.com/Fuwn), although with a different mental model;
