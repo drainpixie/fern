@@ -30,8 +30,12 @@ USAGE
 
 ATTRIBUTIONS
   This project was born out of my own frustration with managing repositories
-  across different forges, but also by [mugi](https://github.com/Fuwn/mugi) by
-  [Fuwn](https://github.com/Fuwn), although with a different mental model;
-  `mugi` prefers operating over a global registry of repositories via a
-  configuration file, `fern` is much more git-centric and prefers operating
-  inside individual repositories.
+  across different forges, but also from mugi [1] by Fuwn [2], although with a
+  different mental model; `mugi` prefers operating over a global registry of
+  repositories via a configuration file, `fern` is much more git-centric and
+  prefers operating inside individual repositories.
+
+
+
+[1] https://github.com/Fuwn/mugi
+[2] https://github.com/Fuwn
