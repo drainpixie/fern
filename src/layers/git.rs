@@ -1,4 +1,5 @@
 use anyhow::{Context, Result, bail};
+use rayon::prelude::*;
 use std::process::{Command, Stdio};
 
 use super::{BranchTracking, Layer, Remote, RemoteStatus};
@@ -110,7 +111,7 @@ impl Layer for Git {
 
     fn remotes(&self) -> Result<Vec<Remote>> {
         self.all_remote_names()?
-            .into_iter()
+            .into_par_iter()
             .map(|name| {
                 let url = self.run(&["remote", "get-url", &name])?;
                 Ok(Remote { name, url })
@@ -137,7 +138,7 @@ impl Layer for Git {
         let branch = self.current_branch().unwrap_or_else(|_| "HEAD".to_string());
 
         self.resolve_targets(remotes)?
-            .iter()
+            .par_iter()
             .try_for_each(|remote| {
                 self.run_interactive(&["push", "--set-upstream", &remote, &branch])
             })
@@ -145,19 +146,19 @@ impl Layer for Git {
 
     fn pull(&self, remotes: &[String]) -> Result<()> {
         self.resolve_targets(remotes)?
-            .iter()
+            .par_iter()
             .try_for_each(|remote| self.run_interactive(&["pull", remote]))
     }
 
     fn fetch(&self, remotes: &[String]) -> Result<()> {
         self.resolve_targets(remotes)?
-            .iter()
+            .par_iter()
             .try_for_each(|remote| self.run_interactive(&["fetch", remote]))
     }
 
     fn status(&self) -> Result<Vec<RemoteStatus>> {
         self.remotes()?
-            .into_iter()
+            .into_par_iter()
             .map(|remote| {
                 let branches = self.branches_tracking(&remote.name)?;
                 Ok(RemoteStatus { remote, branches })
